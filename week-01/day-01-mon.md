@@ -184,60 +184,87 @@ echo ".venv/" >> .gitignore
 
 &nbsp;
 
-## Part 3 — Docker `20 min`
+## Part 3 — Podman `20 min`
 
 &nbsp;
 
-### What is Docker? (30-second version)
+### What is Podman? (30-second version)
 
-Imagine you built an app on your laptop and it works perfectly. You send it to a friend and it breaks. Different OS, different versions, missing libraries. Docker fixes this. It packages your app + everything it needs into a **container** — a tiny, portable box that runs the same everywhere.
+Imagine you built an app on your laptop and it works perfectly. You send it to a friend and it breaks. Different OS, different versions, missing libraries. Containers fix this. They package your app + everything it needs into a tiny, portable box that runs the same everywhere.
 
-In the AI world, Docker is how models get shipped to production. Every ML pipeline, every inference server, every Kubernetes deployment starts with a Docker image.
+Podman does the same thing as Docker — but it's open source, daemonless (no background process hogging memory), and rootless by default (more secure). Every `docker` command you see online? Just swap in `podman`. They're interchangeable.
+
+In the AI world, containers are how models get shipped to production. Every ML pipeline, every inference server, every Kubernetes deployment starts with a container image.
 
 &nbsp;
 
 ### Do This
 
-**1 →** Install Docker Desktop
-
-- Go to [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/)
-- Download for your OS
-- Install and open it
-- Let it start up (the whale icon in your menu bar should stop animating)
+> Assuming you already have **Podman Machine** app installed on your Mac.
 
 &nbsp;
 
-**2 →** Verify it works
+**1 →** Open Podman Machine app and start the machine
+
+- Open **Podman Machine** from your Applications
+- Click **Start** (it boots a lightweight Linux VM under the hood)
+- Wait until the status shows **Running** ✅
+
+&nbsp;
+
+**2 →** Verify it works in your terminal
 
 ```bash
-docker --version
-docker run hello-world
+podman --version
+podman machine info
 ```
 
-> You should see "Hello from Docker!" — that means Docker pulled a tiny image from the internet and ran it in a container on your machine. That's the magic.
+> You should see the version + machine status. The "machine" is a tiny Linux VM that Podman uses to run containers on macOS.
 
 &nbsp;
 
-**3 →** Understand what just happened
-
-```
-You typed:        docker run hello-world
-Docker did:       1. Checked if "hello-world" image exists locally → nope
-                  2. Downloaded it from Docker Hub (like an app store for containers)
-                  3. Created a container from that image
-                  4. Ran it → printed the message
-                  5. Container stopped (it's done)
-```
-
-&nbsp;
-
-**4 →** Try one more — run a real OS in a container
+**3 →** Run your first container
 
 ```bash
-docker run -it ubuntu bash
+podman run hello-world
+```
+
+> You should see "Hello from Docker!" (yes, it says Docker — it's the same image from the same registry, Podman just runs it without Docker's daemon).
+
+&nbsp;
+
+**4 →** Understand what just happened
+
+```
+You typed:        podman run hello-world
+Podman did:       1. Checked if "hello-world" image exists locally → nope
+                  2. Asked which registry (pick docker.io)
+                  3. Downloaded it from Docker Hub
+                  4. Created a container from that image
+                  5. Ran it → printed the message
+                  6. Container stopped (it's done)
+```
+
+&nbsp;
+
+**5 →** Try one more — run a real OS in a container
+
+```bash
+podman run -it ubuntu bash
 ```
 
 > You're now inside an Ubuntu Linux container. Type `ls` to look around. Type `exit` to leave. You just ran a whole Linux OS inside a box on your machine. 🤯
+
+&nbsp;
+
+**6 →** (Optional) Set up the Docker alias so any tutorial works
+
+```bash
+echo 'alias docker=podman' >> ~/.zshrc
+source ~/.zshrc
+```
+
+> Now `docker run`, `docker build`, etc. all just work — they silently call Podman instead.
 
 &nbsp;
 
@@ -331,7 +358,7 @@ Open VS Code, go to Extensions (`Cmd+Shift+X`), and install:
 | Extension | Why |
 |-----------|-----|
 | **Python** (Microsoft) | Syntax, linting, debugging |
-| **Docker** (Microsoft) | Manage containers visually |
+| **Podman** (Podman Desktop extension) | Manage containers visually |
 | **Kubernetes** (Microsoft) | See cluster resources in sidebar |
 | **YAML** (Red Hat) | K8s manifests are YAML — this validates them |
 | **Markdown All in One** | Makes your daily logs look nice |
@@ -362,7 +389,7 @@ Fill in what you learned and what confused you. Be honest — future you will th
 
 ```bash
 git add .
-git commit -m "day 1: dev environment complete — python, docker, kubectl, minikube"
+git commit -m "day 1: dev environment complete — python, podman, kubectl, minikube"
 git push
 ```
 
@@ -379,7 +406,7 @@ git push
 | ☐ | GitHub repo `ai-mlops-journey` created and cloned |
 | ☐ | Folder structure created |
 | ☐ | Python 3.10+ installed, virtual env working |
-| ☐ | Docker Desktop installed, `hello-world` ran |
+| ☐ | Podman running, `hello-world` container ran |
 | ☐ | kubectl + minikube installed, cluster started |
 | ☐ | VS Code extensions installed |
 | ☐ | Daily log filled in and pushed |
@@ -397,8 +424,9 @@ git push
 |---------|-----------|
 | **Git** | Time machine for code |
 | **Virtual env** | Sandbox so packages don't fight each other |
-| **Docker image** | A recipe — the blueprint |
-| **Docker container** | A running instance of that recipe |
+| **Container image** | A recipe — the blueprint |
+| **Container** | A running instance of that recipe |
+| **Podman** | Docker alternative — daemonless, rootless, same commands |
 | **Kubernetes** | The manager that runs thousands of containers |
 | **kubectl** | Your remote control for K8s |
 | **minikube** | A tiny K8s cluster on your laptop |
