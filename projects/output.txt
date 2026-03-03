@@ -1,0 +1,3 @@
+Pod: nginx-abc123
+Status: Running
+Restarts: 0

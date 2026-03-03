@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-03-02 21:21:44.188300",
+  "pods": [
+    {
+      "name": "nginx-7b8d",
+      "namespace": "default",
+      "status": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "redis-3f2a",
+      "namespace": "cache",
+      "status": "Running",
+      "restarts": 2
+    },
+    {
+      "name": "ml-api-9c1e",
+      "namespace": "inference",
+      "status": "CrashLoopBackOff",
+      "restarts": 14
+    },
+    {
+      "name": "postgres-5d7b",
+      "namespace": "database",
+      "status": "Running",
+      "restarts": 0
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "nginx-abc",
+    "status": "Running",
+    "restarts": 0
+  },
+  {
+    "name": "redis-xyz",
+    "status": "CrashLoopBackOff",
+    "restarts": 5
+  },
+  {
+    "name": "api-def",
+    "status": "Running",
+    "restarts": 1
+  }
+]
